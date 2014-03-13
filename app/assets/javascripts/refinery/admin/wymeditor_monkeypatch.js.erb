@@ -1,7 +1,7 @@
 <%#encoding: UTF-8 %>
 wymeditor_boot_options.toolsItems.push({'name': 'AddVideo', 'title': 'Add_Video', 'css': 'wym_tools_add_video'});
 
-<% locales = %w(en es sk pt-BR zh-CN ru)%>
+<% locales = %w(en es sk pt-BR zh-CN ru fr)%>
 <% locales.each do |locale| %>
   if (WYMeditor.STRINGS['<%=locale%>']) WYMeditor.STRINGS['<%=locale%>']['Video'] = WYMeditor.STRINGS['<%=locale%>']['Add_Video'] = '<%= I18n.t 'refinery.videos.admin.videos.records.title' %>';
 <% end %>
