@@ -21,8 +21,11 @@ module Refinery
         end
 
         def insert
-          search_all_videos if searching?
-          find_all_videos
+          if searching?
+            search_all_videos 
+          else
+            find_all_videos
+          end
           paginate_videos
         end
 
