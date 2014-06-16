@@ -2,7 +2,7 @@ module Refinery
   module Videos
     include ActiveSupport::Configurable
 
-    config_accessor :dragonfly_insert_before, :dragonfly_secret, :dragonfly_url_format,
+    config_accessor :dragonfly_insert_before, :dragonfly_secret, :dragonfly_url_format, :dragonfly_url_host,
                     :max_file_size, :pages_per_dialog, :pages_per_admin_index,
                     :s3_backend, :s3_bucket_name, :s3_region,
                     :s3_access_key_id, :s3_secret_access_key,
@@ -11,6 +11,8 @@ module Refinery
     self.dragonfly_insert_before = 'ActionDispatch::Callbacks'
     self.dragonfly_secret = Refinery::Core.dragonfly_secret
     self.dragonfly_url_format = '/system/videos/:job/:basename.:format'
+    self.dragonfly_url_host = ''
+
     self.trust_file_extensions = false
     self.max_file_size = 524288000
     self.pages_per_dialog = 7

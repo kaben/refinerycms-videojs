@@ -6,7 +6,7 @@ module Refinery
 
       class << self
         def setup!
-          app_videos = ::Dragonfly[:refinery_videos]
+          app_videos = ::Dragonfly.app(:refinery_videos)
 
           app_videos.define_macro(::Refinery::Videos::VideoFile, :video_accessor)
 
@@ -15,23 +15,28 @@ module Refinery
         end
 
         def configure!
-          app_videos = ::Dragonfly[:refinery_videos]
-          app_videos.configure_with(:rails) do |c|
-            #c.datastore = ::Dragonfly::DataStorage::MongoDataStore.new(:db => MongoMapper.database)
-            c.datastore.root_path = Refinery::Videos.datastore_root_path
-            c.url_format = Refinery::Videos.dragonfly_url_format
-            c.secret = Refinery::Videos.dragonfly_secret
+          app_videos = ::Dragonfly.app(:refinery_videos)
+          app_videos.configure do
+            datastore :file, {
+              :root_path => Refinery::Videos.datastore_root_path,
+            }
+            url_format Refinery::Videos.dragonfly_url_format
+            url_host Refinery::Videos.dragonfly_url_host
+            secret Refinery::Videos.dragonfly_secret
+
           end
 
           if ::Refinery::Videos.s3_backend
-            app_videos.datastore = ::Dragonfly::DataStorage::S3DataStore.new
-            app_videos.datastore.configure do |s3|
-              s3.bucket_name = Refinery::Videos.s3_bucket_name
-              s3.access_key_id = Refinery::Videos.s3_access_key_id
-              s3.secret_access_key = Refinery::Videos.s3_secret_access_key
-              # S3 Region otherwise defaults to 'us-east-1'
-              s3.region = Refinery::Videos.s3_region if Refinery::Videos.s3_region
-            end
+            require 'dragonfly/s3_data_store'
+            options = {
+              bucket_name: Refinery::Videos.s3_bucket_name,
+              access_key_id: Refinery::Videos.s3_access_key_id,
+              secret_access_key: Refinery::Videos.s3_secret_access_key
+            }
+            # S3 Region otherwise defaults to 'us-east-1'
+            options.update(region: Refinery::Videos.s3_region) if Refinery::Videos.s3_region
+            app_videos.use_datastore :s3, options
+
           end
         end
 
