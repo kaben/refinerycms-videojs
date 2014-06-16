@@ -12,7 +12,8 @@ module Refinery
 
       ############################ Dragonfly
       ::Refinery::Videos::Dragonfly.setup!
-      video_accessor :file
+      #video_accessor :file
+      dragonfly_accessor :file, :app => :refinery_videos
 
       delegate :ext, :size, :mime_type, :url,
                :to        => :file,
