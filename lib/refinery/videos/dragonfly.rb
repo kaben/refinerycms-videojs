@@ -10,7 +10,7 @@ module Refinery
 
           #app_videos.define_macro(::Refinery::Videos::VideoFile, :video_accessor)
 
-          app_videos.analyser.register(::Dragonfly::Analysis::FileCommandAnalyser)
+          #app_videos.analyser.register(::Dragonfly::Analysis::FileCommandAnalyser)
           app_videos.content_disposition = :attachment
         end
 
@@ -23,7 +23,10 @@ module Refinery
             url_format Refinery::Videos.dragonfly_url_format
             url_host Refinery::Videos.dragonfly_url_host
             secret Refinery::Videos.dragonfly_secret
-
+            response_header 'Content-Disposition' do |job, request, headers|
+              "attachment; #{headers['Content-Disposition']}"
+            end if Refinery::Videos.content_disposition == :attachment
+            dragonfly_url nil
           end
 
           if ::Refinery::Videos.s3_backend
