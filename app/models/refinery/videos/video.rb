@@ -60,7 +60,7 @@ module Refinery
             sources << ["<source src=\"#{file.url}\" type=\"#{file.file_mime_type}\"/>"]
           end if file.exist?
         end
-        html = %Q{<div class="video_embeded"><video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}" poster="#{poster.try(:url)}" width="#{config[:width]}" height="#{config[:height]}" data-setup='{#{data_setup.join(',')}}'>#{sources.join}</video></div>}
+        html = %Q{<div class="video_embeded"><video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}" poster="#{poster.url}" width="#{config[:width]}" height="#{config[:height]}" data-setup='{#{data_setup.join(',')}}'>#{sources.join}</video></div>}
 
         html.html_safe
       end
