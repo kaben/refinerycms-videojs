@@ -46,6 +46,12 @@ module Refinery
           @embedded = true if @video.use_shared
         end
 
+        protected
+
+        def video_params
+          params.require(:video).permit(:title, :poster_id, {:video_files_attributes => [:use_external, :file, :external_url]}, :external_url, :width, :height, :autoplay, :controls, :preload, :loop, :position, :embed_tag, :use_shared)
+        end
+
         private
 
         def paginate_videos
