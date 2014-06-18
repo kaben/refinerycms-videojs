@@ -1,6 +1,6 @@
 require 'refinerycms-core'
 require 'dragonfly'
-require 'rack/cache'
+#require 'rack/cache'
 
 
 module Refinery
