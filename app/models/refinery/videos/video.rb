@@ -61,45 +61,17 @@ module Refinery
           end if file.exist?
         end
 
-        #html = %Q{<div class="video_embeded"><video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}" poster="#{poster.url}" width="#{config[:width]}" height="#{config[:height]}" data-setup='{#{data_setup.join(',')}}'>#{sources.join}</video></div>}
-
-        #html = %Q{
-        # <video id="example_video_1" class="video-js vjs-default-skin"
-        #   controls preload="auto" width="640" height="264"
-        #   poster="http://video-js.zencoder.com/oceans-clip.png"
-        #   data-setup='{"example_option":true}'>
-        #  <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-        #  <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
-        #  <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-        #  <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-        # </video>
-        #}
-
-        #html = %Q{
-        # <div class="video_embeded">
-        #  <video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}"
-        #    controls preload="auto" width="#{config[:width]}" height="#{config[:height]}"
-        #    poster="#{poster.url}"
-        #    data-setup='{"example_option":true}'>
-        #   <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-        #   <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
-        #   <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-        #   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-        #  </video>
-        # </div>
-        #}
-
         html = %Q{
-         <div class="video_embeded">
-          <video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}"
-            controls preload="auto" width="#{config[:width]}" height="#{config[:height]}"
-            poster="#{poster.url}"
-            data-setup='{"example_option":true}'>
-           #{sources.join}
-           <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-          </video>
-         </div>
-        }
+<div class="video_embeded">
+ <video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}"
+   controls="true" preload="auto" width="#{config[:width]}" height="#{config[:height]}"
+   poster="#{poster.url}"
+   data-setup='{#{data_setup.join(', ')}}'
+  >
+  #{sources.join}
+ </video>
+</div>
+}
 
         html.html_safe
       end
