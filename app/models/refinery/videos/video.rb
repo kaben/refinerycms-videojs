@@ -50,8 +50,14 @@ module Refinery
             data_setup << "\"#{option}\": #{config[option] || '\"auto\"'}"
           end
         end
-
+        if video_files.first.use_external
+          data_setup << '"techOrder": ["youtube", "html5", "flash"]'
+          data_setup << "\"src\": \"#{video_files.first.external_url}\""
+        end
         data_setup << "\"poster\": \"#{poster.url}\"" if poster
+        poster_url_attribute = "  poster=\"#{poster.url}\"\n" if poster
+        poster_url_attribute ||= ""
+
         sources = []
         video_files.each do |file|
           if file.use_external
@@ -65,7 +71,7 @@ module Refinery
 <div class="video_embeded">
  <video id="video_#{self.id}" class="video-js #{Refinery::Videos.skin_css_class}"
    controls="true" preload="auto" width="#{config[:width]}" height="#{config[:height]}"
-   poster="#{poster.url}"
+#{poster_url_attribute}
    data-setup='{#{data_setup.join(', ')}}'
   >
   #{sources.join}

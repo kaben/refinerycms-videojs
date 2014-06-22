@@ -4,4 +4,5 @@ Refinery::Core.configure do |config|
 
   #Register extra stylesheet for backend (optional options)
   config.register_stylesheet "refinery/admin/video.css"
+  #config.register_javascript "youtube.js"
 end
