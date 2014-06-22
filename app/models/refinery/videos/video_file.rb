@@ -53,10 +53,10 @@ module Refinery
           else
             self.file_mime_type = 'video/mp4'
           end
+        else
+          self.file_mime_type = dragonfly_attachments[:file].mime_type
         end
-
       end
-
 
     end
   end
