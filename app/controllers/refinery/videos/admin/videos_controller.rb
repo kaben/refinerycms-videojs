@@ -30,8 +30,10 @@ module Refinery
             )
             create_or_update_successful
             @video.video_files.where('id in (?)', former_ext_file_ids).destroy_all
+            puts "Refinery::Videos::Admin::VideoController.update successful."
           else
             create_or_update_unsuccessful 'edit'
+            puts "Refinery::Videos::Admin::VideoController.update failed."
           end
         end
 
