@@ -17,7 +17,7 @@ module Refinery
 
         def new
           @video = Video.new
-          @video.video_files.build
+          @video.video_files.build(use_external: true)
         end
 
         def update
