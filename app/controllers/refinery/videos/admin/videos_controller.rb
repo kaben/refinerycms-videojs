@@ -22,12 +22,14 @@ module Refinery
 
         def update
           puts "Refinery::Videos::Admin::VideoController.update video_params: #{video_params}"
+          former_ext_file_ids = @video.video_files.where(use_external: true).pluck(:id)
           if @video.update_attributes(video_params)
             flash.notice = t(
               'refinery.crudify.updated',
               :what => "#{@video.title}"
             )
             create_or_update_successful
+            @video.video_files.where('id in (?)', former_ext_file_ids).destroy_all
           else
             create_or_update_unsuccessful 'edit'
           end
