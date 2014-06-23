@@ -50,22 +50,27 @@ module Refinery
             data_setup << "\"#{option}\": #{config[option] || '\"auto\"'}"
           end
         end
-        if video_files.first.use_external
-          data_setup << '"techOrder": ["youtube", "html5", "flash"]'
-          data_setup << "\"src\": \"#{video_files.first.external_url}\""
-        end
         data_setup << "\"poster\": \"#{poster.url}\"" if poster
-        poster_url_attribute = "  poster=\"#{poster.url}\"\n" if poster
+
+        poster_url_attribute = "   poster=\"#{poster.url}\"\n" if poster
         poster_url_attribute ||= ""
 
         sources = []
-        video_files.each do |file|
-          if file.use_external
-            sources << ["<source src=\"#{file.external_url}\" type=\"#{file.file_mime_type}\"/>"]
-          else
-            sources << ["<source src=\"#{file.url}\" type=\"#{file.file_mime_type}\"/>"]
-          end if file.exist?
+        if video_files.last.use_external
+          data_setup << '"techOrder": ["youtube", "html5", "flash"]'
+          data_setup << "\"src\": \"#{video_files.last.external_url}\""
+        else
+          video_files.each do |file|
+            if file.use_external
+              sources << ["<source src=\"#{file.external_url}\" type=\"#{file.file_mime_type}\"/>"]
+            else
+              sources << ["<source src=\"#{file.url}\" type=\"#{file.file_mime_type}\"/>"]
+            end if file.exist?
+          end
         end
+        all_sources = "  #{sources.join}\n" if !sources.empty?
+        all_sources ||= ""
+
 
         html = %Q{
 <div class="video_embeded">
@@ -74,7 +79,7 @@ module Refinery
 #{poster_url_attribute}
    data-setup='{#{data_setup.join(', ')}}'
   >
-  #{sources.join}
+#{all_sources}
  </video>
 </div>
 }

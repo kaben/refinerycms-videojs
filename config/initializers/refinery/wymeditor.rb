@@ -10,6 +10,7 @@ Refinery::Wymeditor.configure do |config|
         '5' => 'loop',
         '6' => 'width',
         '7' => 'height',
+        '8' => 'src',
       }
     },
     'source' => {

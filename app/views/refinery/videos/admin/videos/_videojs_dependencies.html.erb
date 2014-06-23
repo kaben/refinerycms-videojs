@@ -1,7 +1,17 @@
-<% #<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
-#<script src="http://vjs.zencdn.net/c/video.js"></script>
+<%#
+<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/c/video.js"></script>
+-%>
+<%#
+<link href="http://vjs.zencdn.net/4.6/video-js.css" rel="stylesheet"> 
+<script src="http://vjs.zencdn.net/4.6/video.js"></script>
 -%>
 
-<link href="http://vjs.zencdn.net/4.6/video-js.css" rel="stylesheet">
-<script src="http://vjs.zencdn.net/4.6/video.js"></script>
+<%= stylesheet_link_tag 'video-js' %>
+<%= javascript_include_tag 'video' %>
+<%#
+<script>
+  videojs.options.flash.swf = "/asserts/video-js.swf"
+</script>
+-%>
 <%= javascript_include_tag 'youtube' %>
