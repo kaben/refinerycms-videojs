@@ -20,6 +20,19 @@ module Refinery
           @video.video_files.build
         end
 
+        def update
+          puts "Refinery::Videos::Admin::VideoController.update video_params: #{video_params}"
+          if @video.update_attributes(video_params)
+            flash.notice = t(
+              'refinery.crudify.updated',
+              :what => "#{@video.title}"
+            )
+            create_or_update_successful
+          else
+            create_or_update_unsuccessful 'edit'
+          end
+        end
+
         def insert
           if searching?
             search_all_videos 
