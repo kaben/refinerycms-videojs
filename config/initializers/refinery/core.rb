@@ -4,4 +4,5 @@ Refinery::Core.configure do |config|
   config.register_javascript "refinery/admin/wymeditor_monkeypatch.js"
   config.register_javascript "video.js"
   config.register_javascript "youtube.js"
+  config.register_javascript "media.vimeo.js"
 end

@@ -37,7 +37,7 @@ en:
             height: Height
           file_fields:
             files: Files
-            file_tip: Add files (or links to files or YouTube videos) of 'mp4', 'webm', 'flv', 'ogg' types for full browser compability.
+            file_tip: Link to YouTube or Vimeo videos, or link to or upload files  of 'mp4', 'webm', 'flv', 'ogg' types for full browser compability.
             use_file: Use file
             use_external_source: Use external source
             add_file: Add file

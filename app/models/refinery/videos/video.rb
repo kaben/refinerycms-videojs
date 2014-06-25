@@ -56,9 +56,20 @@ module Refinery
         poster_url_attribute ||= ""
 
         sources = []
-        if video_files.last.use_external
-          data_setup << '"techOrder": ["youtube", "html5", "flash"]'
-          data_setup << "\"src\": \"#{video_files.last.external_url}\""
+        last_file = video_files.last
+        if last_file.use_external
+          # Regular expression to check for YouTube or Vimeo URLs.
+          url_re = /^https?:\/\/(\w*\.)?(youtu|vimeo).*/
+          external_url = last_file.external_url
+          case url_re.match(external_url)[-1]
+          when 'youtu'
+            data_setup << '"techOrder": ["youtube"]'
+          when 'vimeo'
+            data_setup << '"techOrder": ["vimeo"]'
+          else
+            data_setup << '"techOrder": ["html5", "flash"]'
+          end
+          data_setup << "\"src\": \"#{external_url}\""
         else
           video_files.each do |file|
             if file.use_external
